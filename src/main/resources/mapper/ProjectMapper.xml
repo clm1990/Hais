@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.ProjectMapper">
+
+    <sql id="selectProjectInfo">
+        select ProjectID,
+               ProjectName,
+               ProjectAddress,
+               ProjectDescribe,
+               Picture,
+               StartTime,
+               MacAddr,
+               ProjectSn
+        from hais_cloud.projectinfo
+    </sql>
+
+    <select id="getAllProjectInfo" resultType="com.hais.hais1000.dto.ProjectInfo">
+        select * from hais_cloud.projectinfo order by ProjectName;
+    </select>
+
+    <select id="getProjectInfo" resultType="com.hais.hais1000.dto.ProjectInfo">
+        <include refid="selectProjectInfo"/>
+        <where>
+            <if test="projectName !=null and projectName!=''">
+                and ProjectName like concat('%',#{projectName},'%')
+            </if>
+            <if test="macAddr !=null and macAddr!=''">
+                and MacAddr like concat('%',#{macAddr},'%')
+            </if>
+            <if test="projectAddress !=null and projectAddress!=''">
+                and ProjectAddress like concat('%',#{projectAddress},'%')
+            </if>
+        </where>
+        order by ProjectName;
+    </select>
+
+    <select id="getProjectInfoBySn" resultType="com.hais.hais1000.dto.ProjectInfo">
+        select * from hais_cloud.projectinfo where ProjectSn = #{sn} limit 1;
+    </select>
+
+    <select id="getProjectInfoByID" resultType="com.hais.hais1000.dto.ProjectInfo">
+        select * from hais_cloud.projectinfo where ProjectID = #{ProjectID} limit 1;
+    </select>
+
+    <insert id="addProjectInfo" parameterType="com.hais.hais1000.dto.ProjectInfo">
+        insert into hais_cloud.projectinfo(ProjectID, ProjectName, ProjectAddress, ProjectDescribe, Picture, StartTime, MacAddr, ProjectSn)
+        values (#{projectId}, #{projectName}, #{projectAddress}, #{projectDescribe}, #{picture}, #{startTime}, #{macAddr}, #{projectSn})
+    </insert>
+
+    <delete id="delProjectInfo">
+        delete from hais_cloud.projectinfo where ProjectID = #{projectId}
+    </delete>
+
+    <update id="updateProjectInfo" parameterType="com.hais.hais1000.dto.ProjectInfo">
+        update hais_cloud.projectinfo set ProjectName = #{projectName}, ProjectAddress = #{projectAddress}, MacAddr = #{macAddr}, ProjectSn = #{projectSn}
+        where ProjectID = #{projectId}
+    </update>
+</mapper>

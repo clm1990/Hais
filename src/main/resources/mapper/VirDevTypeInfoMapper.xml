@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.VirDevTypeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hais.hais1000.dto.VirDevTypeInfo">
+        <result column="VirDevTypeID" jdbcType="VARCHAR" property="virDevTypeID"/>
+        <result column="VirDevTypeName" jdbcType="VARCHAR" property="virDevTypeName"/>
+        <result column="Class" jdbcType="INTEGER" property="virClass"/>
+        <result column="Section" jdbcType="INTEGER" property="section"/>
+        <result column="Reserved1" jdbcType="VARCHAR" property="reserved1"/>
+        <result column="Reserved2" jdbcType="VARCHAR" property="reserved2"/>
+        <result column="Reserved3" jdbcType="INTEGER" property="reserved3"/>
+    </resultMap>
+
+    <sql id="selectVirDevTypeVo">
+        SELECT VirDevTypeID,
+               VirDevTypeName,
+               Class,
+               Section,
+               Reserved1,
+               Reserved2,
+               Reserved3
+        FROM hais_cloud.asp_virdevicetypeinfo
+    </sql>
+
+    <select id="getVirDevTypeInfo" resultMap="BaseResultMap">
+        <include refid="selectVirDevTypeVo"/>
+    </select>
+    <!--select id="getClassBy" resultType="map">
+        select Class , Reserved1 FROM asp_virdevicetypeinfo GROUP BY Class
+    </select-->
+
+    <!--insert id="add" parameterType="com.geegao.apiSDK.collect.DTO.VirDevTypeInfoDTO">
+        INSERT INTO `asp_virdevicetypeinfo`
+        (`VirDevTypeID`,
+         `VirDevTypeName`,
+         `Class`,
+         `Section`,
+         `Reserved1`,
+         `Reserved2`,
+         `Reserved3`)
+        VALUES (#{virDevTypeID},
+                #{virDevTypeName},
+                #{virClass},
+                #{section},
+                #{reserved1},
+                #{reserved2},
+                #{reserved3});
+    </insert>
+
+    <update id="update" parameterType="com.geegao.apiSDK.collect.DTO.VirDevTypeInfoDTO">
+        UPDATE `asp_virdevicetypeinfo`
+        <set>
+            <if test="virDevTypeName !=null and virDevTypeName !=''">`VirDevTypeName` = #{virDevTypeName},</if>
+            <if test="byClass !=null">`Class` = #{virClass},</if>
+            <if test="section !=null">`Section` = #{section},</if>
+            <if test="reserved1 !=null and reserved1 !=''">`Reserved1` = #{reserved1},</if>
+            <if test="reserved2 !=null and reserved2 !=''">`Reserved2` = #{reserved2},</if>
+            <if test="reserved2 !=null ">`Reserved3` = #{reserved3},</if>
+        </set>
+        WHERE `VirDevTypeID` = #{virDevTypeID};
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE
+        FROM
+            `asp_virdevicetypeinfo`
+        WHERE VirDevTypeID = #{virDevID}
+    </delete-->
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.LoadControlFlowItemMapper">
+    <select id="getLoadControlFlowItemBySatrtTime" resultType="com.hais.hais1000.dto.LoadControlFlowItem">
+        select * from hais_cloud.loadcontrolflowitem where StartTime &lt;= #{time} and FlowState = 0
+    </select>
+
+    <select id="getLoadControlFlowItemByEndTime" resultType="com.hais.hais1000.dto.LoadControlFlowItem">
+        select * from hais_cloud.loadcontrolflowitem where EndTime &lt;= #{time} and FlowState = 1
+    </select>
+
+    <update id="updateStateLoadControlFlowItem">
+        update hais_cloud.loadcontrolflowitem set FlowState = #{flowState} where FlowID = #{flowID} and  Cid = #{cid}
+    </update>
+
+    <update id="updateStartValueLoadControlFlowItem">
+        update hais_cloud.loadcontrolflowitem set StartValue = #{startValue} where FlowID = #{flowID} and  Cid = #{cid}
+    </update>
+
+    <insert id="addLoadControlFlowItem" parameterType="com.hais.hais1000.dto.LoadControlFlowItem">
+        insert into hais_cloud.loadcontrolflowitem (FlowID, StartValue, StartTime, EndTime, FlowState, CallType, CallValue, Cid, Sn, EventTime, Reserved1, Reserved2, Reserved3)
+        values
+        <foreach collection ="loadControlFlowItems" item="item" separator =",">
+            (#{item.flowID}, #{item.startValue}, #{item.startTime}, #{item.endTime}, #{item.flowState}, #{item.callType}, #{item.callValue}, #{item.cid}, #{item.sn},#{item.eventTime}, #{item.reserved1}, #{item.reserved2}, #{item.reserved3})
+        </foreach>
+    </insert>
+
+    <update id="updateLoadControlFlowItem"></update>
+
+</mapper>

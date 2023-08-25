@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.LoadControlFlowMapper">
+    <select id="getLoadControlFlowByID" resultType="com.hais.hais1000.dto.LoadControlFlow">
+        select * from hais_cloud.loadcontrolflow where FlowID = #{flowID}
+    </select>
+
+    <insert id="addLoadControlFlow" parameterType="com.hais.hais1000.dto.LoadControlFlow">
+        insert into hais_cloud.loadcontrolflow (FlowID, MsgType, Mid, Cmd, ServiceID, DeviceID, EventTime, Reserved1, Reserved2, Reserved3)
+        values (#{flowID}, #{msgType}, #{mid}, #{cmd}, #{serviceID}, #{deviceID}, #{eventTime}, #{reserved1}, #{reserved2}, #{reserved3})
+    </insert>
+</mapper>

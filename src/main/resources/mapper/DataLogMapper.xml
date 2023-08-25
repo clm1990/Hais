@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.DataLogMapper">
+    <select id="getLogByMacAddr" resultType="com.hais.hais1000.dto.DataLog">
+        select * from hais_cloud.datalog where MacAddr like CONCAT ('%',#{macAddr},'%') order by EventTime desc
+    </select>
+
+    <insert id="addDataLog" parameterType="com.hais.hais1000.dto.DataLog">
+        insert into hais_cloud.datalog(MacAddr, Log, EventTime) values (#{macAddr}, #{log}, #{eventTime})
+    </insert>
+</mapper>

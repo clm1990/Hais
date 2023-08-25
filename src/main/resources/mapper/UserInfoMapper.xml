@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.UserInfoMapper">
+    <select id="getUserInfo" resultType="com.hais.hais1000.dto.UserInfo">
+        select * from hais_cloud.asp_userinfo where UserName = #{userName} limit 1
+    </select>
+
+    <select id="getAllUserInfo" resultType="com.hais.hais1000.dto.UserInfo">
+        select * from hais_cloud.asp_userinfo order by UserName
+    </select>
+</mapper>

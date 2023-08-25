@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.VirDevParamInfoMapper">
+    <sql id="selectTable">
+        select VirDevID, ParamSeq, ParamName, ParamValue, ParamType, ParamLevel, ParamUIType, ParamSign, Reserved1, Reserved2, Reserved3 from hais_cloud.asp_virdeviceparaminfo
+    </sql>
+
+    <select id="getVirDevParamInfo" parameterType="String" resultType="com.hais.hais1000.dto.VirDevParamInfo">
+        <include refid="selectTable"></include>
+        <where>
+            <if test="virDevID !=null and virDevID!=''">
+                and VirDevID = #{virDevID}
+            </if>
+        </where>
+        order by ParamSeq
+    </select>
+
+    <update id="updateVirDevParamValue">
+        update hais_cloud.asp_virdeviceparaminfo set ParamValue = #{paramValue} where VirDevID = #{virDevID} and ParamSeq = #{paramSeq}
+    </update>
+
+    <update id="updateVirDevParamValueList">
+        <foreach collection ="virDevParamHisInfoList" item="item" separator =";">
+            update hais_cloud.asp_virdeviceparaminfo
+            <set>
+                ParamValue = #{item.paramValue}
+            </set>
+            where virDevID = #{item.virDevID} and paramSeq = #{item.paramSeq}
+        </foreach>
+    </update>
+
+    <insert id="addVirDevParamInfo" parameterType="com.hais.hais1000.dto.VirDevParamInfo">
+        insert into hais_cloud.asp_virdeviceparaminfo(VirDevID, ParamSeq, ParamName, ParamValue, ParamType, ParamLevel, ParamUIType, ParamSign, Reserved1, Reserved2, Reserved3)
+        values (#{virDevID}, #{paramSeq}, #{paramName}, #{paramValue}, #{paramType}, #{paramLevel}, #{paramUIType}, #{paramSign}, #{reserved1}, #{reserved2}, #{reserved3})
+    </insert>
+
+    <insert id="addVirDevParamInfoList" parameterType="java.util.List">
+        insert into hais_cloud.asp_virdeviceparaminfo(VirDevID, ParamSeq, ParamName, ParamValue, ParamType, ParamLevel, ParamUIType, ParamSign, Reserved1, Reserved2, Reserved3)
+        values
+        <foreach collection ="list" item="item" separator =",">
+            (#{item.virDevID}, #{item.paramSeq}, #{item.paramName}, #{item.paramValue}, #{item.paramType}, #{item.paramLevel}, #{item.paramUIType}, #{item.paramSign}, #{item.reserved1}, #{item.reserved2}, #{item.reserved3})
+        </foreach>
+    </insert>
+
+    <delete id="delVirDevParamInfo" parameterType="String">
+        delete from hais_cloud.asp_virdeviceparaminfo where VirDevID = #{virDevID}
+    </delete>
+</mapper>

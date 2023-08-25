@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.VirDevTypeParamInfoMapper">
+
+        <resultMap id="BaseResultMap" type="com.hais.hais1000.dto.VirDevTypeParamInfo">
+            <result column="VirDevTypeID" jdbcType="VARCHAR" property="projectID" />
+            <result column="ParamSeq" jdbcType="INTEGER" property="physicalNodeID" />
+            <result column="ParamName" jdbcType="VARCHAR" property="pointName" />
+            <result column="ParamType" jdbcType="INTEGER" property="pointGUID" />
+            <result column="ParamIsKey" jdbcType="INTEGER" property="startValue" />
+            <result column="ParamUIType" jdbcType="INTEGER" property="valueExplain" />
+            <result column="ParamSign" jdbcType="INTEGER" property="pointUnit" />
+            <result column="Reserved1" jdbcType="VARCHAR" property="reserved1" />
+            <result column="Reserved2" jdbcType="VARCHAR" property="reserved2" />
+            <result column="Reserved3" jdbcType="INTEGER" property="reserved3" />
+        </resultMap>
+
+        <select id="getVirDevTypeParamInfo" resultType="com.hais.hais1000.dto.VirDevTypeParamInfo">
+            select VirDevTypeID,
+                   ParamSeq,
+                   ParamName,
+                   ParamType,
+                   ParamIsKey,
+                   ParamUIType,
+                   ParamSign,
+                   Reserved1,
+                   Reserved2,
+                   Reserved3
+            from hais_cloud.asp_virdevicetypeparaminfo
+            where VirDevTypeID = #{virDevTypeID}
+        </select>
+</mapper>

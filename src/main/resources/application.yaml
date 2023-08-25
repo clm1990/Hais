@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Mm19850324
+    url: jdbc:mysql://172.16.0.181:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useAffectedRows=true&allowMultiQueries=true
+    #url: jdbc:mysql://127.0.0.1:3306?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useAffectedRows=true&allowMultiQueries=true
+    username: root
+  main:
+    allow-circular-references: true
+
+#server:
+#  port: 9999
+
+mqtt:
+  mqtturl: 123.60.90.179
+  port: 1883
+  username: admin
+  password: password
+  topic: /data/log
+  #clientid: xxx-cloud-Hais1000client
+  clientid: xxx-cloud-Hais1000client-test123
+
+thirdmqtt:
+  #mqtturl: 119.96.177.51
+  #port: 1883
+  mqtturl: 114.117.204.10
+  port: 1883
+  ##mqtturl: 106.75.14.237
+  #port: 5839
+  username: YWY7CBDF130E5241D7C
+  password: 812D7A1D9419FC93
+  topic: /v1/devices/YWY-ZK0001/command
+  clientid: YWY-ZK0001
+
+mybatis:
+  #configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #typeAliasesPackage: com.hais.hais1000.dto
+  mapper-locations: classpath*:mapper/*Mapper.xml

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hais.hais1000.dao.VirDevInfoMapper">
+
+    <sql id="selectTable">
+        select ProjectID,
+               LogicalNodeID,
+               VirDevTypeID,
+               VirDevTypeName,
+               VirDevID,
+               VirDevName,
+               Description,
+               VirDevState,
+               Peculiarity,
+               Reserved1,
+               Reserved2,
+               Reserved3
+        from hais_cloud.asp_virdeviceinfo
+    </sql>
+
+    <select id="getVirDevInfo" resultType="com.hais.hais1000.dto.VirDevInfo">
+        <include refid="selectTable"></include>
+        <where>
+            <if test="projectID !=null and projectID!=''">
+                and ProjectID = #{projectID}
+            </if>
+            <if test="virDevTypeID !=null and virDevTypeID!=''">
+                and VirDevTypeID = #{virDevTypeID}
+            </if>
+        </where>
+    </select>
+
+    <select id="getVirDevInfoByID" resultType="com.hais.hais1000.dto.VirDevInfo">
+        <include refid="selectTable"></include>
+        <where>
+            <if test="projectID !=null and projectID!=''">
+                and ProjectID = #{projectID}
+            </if>
+            <if test="virDevID !=null and virDevID!=''">
+                and VirDevTypeID = #{virDevTypeID}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addVirDevInfo" parameterType="com.hais.hais1000.dto.VirDevInfo">
+        insert into hais_cloud.asp_virdeviceinfo(ProjectID,LogicalNodeID,VirDevTypeID,VirDevTypeName,VirDevID,VirDevName,Description,VirDevState,Peculiarity,Reserved1,Reserved2,Reserved3)
+        values (#{projectID}, #{logicalNodeID}, #{virDevTypeID}, #{virDevTypeName}, #{virDevID}, #{virDevName}, #{description}, #{virDevState}, #{peculiarity}, #{reserved1}, #{reserved2}, #{reserved3})
+    </insert>
+
+    <delete id="delVirDevInfo">
+        delete from hais_cloud.asp_virdeviceinfo where ProjectID = #{projectID}
+    </delete>
+</mapper>
